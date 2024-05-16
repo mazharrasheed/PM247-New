@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+
+    <div class="row py-4">
+        <div class="col-12 mb-4">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col"><h2 class="fs-5 fw-bold mb-0">Engineers Available Today</h2></div>
+                                <div class="col text-end"><a href="/engineers_today/" class="btn btn-sm btn-outline-gray-600">See all</a></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="border-bottom fw-bolder" scope="col">Engineer Name</th>
+                                        <th class="border-bottom fw-bolder" scope="col">Postcode Cover</th>
+                                        <th class="border-bottom fw-bolder" scope="col">Job Type</th>
+                                        <th class="border-bottom fw-bolder" scope="col">Available</th>
+                                        <th class="border-bottom fw-bolder" scope="col">Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     
+                            {% for engr  in engineers %}
+             
+                            <tr>
+                                <td class=" text-gray-900">{{engr.engineer}}</td>
+                                <td class=" text-gray-900">
+                                    {% for city in engr.cities.all %}
+                                <span class="badge super-badge bg-success ms-1">{{ city }}</span>
+                                {% endfor %}
+                                    
+                                </td>
+                                <td class=" text-gray-900">
+                                    {% for job in engr.jobs.all %}
+                                
+                                    <span class="badge super-badge ms-1 {% if job.name == 'Plumbing' %} bg-info {% elif job.name == 'Drainage'  %} bg-success{% elif job.name == 'Electricity'  %} bg-warning {% elif job.name == 'Heating'  %} bg-danger {% elif job.name == 'Gas'  %} bg-secondary {% elif job.name == 'Unvented'  %}bg-tertiary   {% else %} bg-danger  {%endif%}  ">{{ job }}</span>
+                                    {% endfor %}
+                                                        
+                                </td>
+                                <td class=" text-gray-900">{{ engr.start_time }} - {{ engr.end_time }}</td>
+                                <td class=" text-gray-900">{{engr.rating}}</td>
+                                
+                            </tr>
+                                     
+                            {% endfor %}            
+                         
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xxl-6 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col"><h2 class="fs-5 fw-bold mb-0">Job Type Engineers</h2></div>
+                                <div class="col text-end"><a href="/engineers_today_jobtype/" class="btn btn-sm btn-outline-gray-600">See all</a></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class=" border-bottom fw-bolder" scope="col">Job Type</th>
+                                        <th class=" border-bottom fw-bolder" scope="col">No of Engineers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td class="text-gray-900">Plumbing</td>
+                                        <td class="text-gray-900">{{plumbing_qty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-gray-900">Drainage</td>
+                                        <td class="text-gray-900">{{drainage_qty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-gray-900">Heating</td>
+                                        <td class="text-gray-900">{{heating_qty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-gray-900">Gas</td>
+                                        <td class="text-gray-900">{{gas_qty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-gray-900">Unvented</td>
+                                        <td class="text-gray-900">{{unvented_qty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-gray-900">Electricity</td>
+                                        <td class="text-gray-900">{{electricity_qty}}</td>
+                                    </tr>                         
+                                                              
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xxl-6 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col"><h2 class="fs-5 fw-bold mb-0">Weekly Availble Engineers </h2></div>
+                                <div class="col text-end"><a href="/engr_available_weekly/" class="btn btn-sm btn-outline-gray-600">See all</a></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class=" border-bottom fw-bolder" scope="col">Engineer Name</th>
+                                        <th class=" border-bottom fw-bolder" scope="col">No of Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for engineer, total_availability in weekly_total_availability.items %}
+                                    <tr>
+                                        <td class="text-gray-900">{{ engineer }}</td>
+                                        <td class="text-gray-900">{{total_availability }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+    <script>
+        $(document).ready(function () {
+          console.log("i m jqurey");
+      
+          // Wait for 10 seconds and then hide the element with id "myElement"
+          setTimeout(function () {
+            $("#msg").hide();
+          }, 4000); // 10000 milliseconds = 10 seconds
+        }); </script>
+ 
+{% endblock content %}

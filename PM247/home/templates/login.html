@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+        <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/img/favicon/apple-touch-icon.png' %}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon/favicon-32x32.png' %}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon/favicon-16x16.png' %}" />
+        <link rel="manifest" href="{% static 'assets/img/favicon/site.webmanifest' %}" />
+        <link rel="mask-icon" href="{% static 'assets/img/favicon/safari-pinned-tab.svg' %}" color="#ffffff" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" />
+        <link type="text/css" href="{% static 'vendor/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'vendor/notyf/notyf.min.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'vendor/fullcalendar/main.min.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'vendor/apexcharts/dist/apexcharts.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'vendor/dropzone/dist/min/dropzone.min.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'vendor/choices.js/public/assets/styles/choices.min.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'vendor/leaflet/dist/leaflet.css' %}" rel="stylesheet" />
+        <link type="text/css" href="{% static 'css/volt.css' %}" rel="stylesheet" />
+        
+        
+    </head>
+    <body>
+        
+        <main>
+            <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+                <div class="container">
+                    
+                    <div class="row justify-content-center form-bg-image" data-background-lg="{% static 'assets/img/illustrations/signin.svg' %}">
+                        <div class="col-12 d-flex align-items-center justify-content-center">
+                            <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                                <div class="text-center text-md-center mb-4 mt-md-0"><h1 class="mb-0 h3">Sign in to our platform</h1></div>
+                                <form action="/login/" method="POST" class="mt-4">
+                                    {% csrf_token %}
+
+                                    {{form|crispy}}
+                                    
+                          
+                                    <div class="d-grid"><button type="submit" class="btn btn-gray-800">Sign in</button></div>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+       
+        <script src="{% static 'vendor/%40popperjs/core/dist/umd/popper.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+        <script src="{% static 'vendor/nouislider/distribute/nouislider.min.js' %}"></script>
+        <script src="{% static 'vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+        <script src="{% static 'vendor/countup.js/dist/countUp.umd.js' %}"></script>
+        <script src="{% static 'vendor/apexcharts/dist/apexcharts.min.js' %}"></script>
+        <script src="{% static 'vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+        <script src="{% static 'vendor/simple-datatables/dist/umd/simple-datatables.js' %}"></script>
+        <script src="{% static 'vendor/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+        <script src="{% static 'cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js' %}"></script>
+        <script src="{% static 'vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+        <script src="{% static 'vendor/fullcalendar/main.min.js' %}"></script>
+        <script src="{% static 'vendor/dropzone/dist/min/dropzone.min.js' %}"></script>
+        <script src="{% static 'vendor/choices.js/public/assets/scripts/choices.min.js' %}"></script>
+        <script src="{% static 'vendor/notyf/notyf.min.js' %}"></script>
+        <script src="{% static 'vendor/leaflet/dist/leaflet.js' %}"></script>
+        <script src="{% static 'vendor/svg-pan-zoom/dist/svg-pan-zoom.min.js' %}"></script>
+        <script src="{% static 'vendor/svgmap/dist/svgMap.min.js' %}"></script>
+        <script src="{% static 'vendor/simplebar/dist/simplebar.min.js' %}"></script>
+        <script src="{% static 'vendor/sortablejs/Sortable.min.js' %}"></script>
+        <script async defer="defer" src="{% static 'buttons.github.io/buttons.js' %}"></script>
+        <script src="{% static 'assets/js/volt.js' %}"></script>
+
+ 
+    </body>
+</html>

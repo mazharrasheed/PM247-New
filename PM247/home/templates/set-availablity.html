@@ -1,0 +1,466 @@
+{% extends 'profile_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+<div class="row my-4">
+   <form action="" method="POST" class="card border-0 shadow p-3 pb-4 mb-4">
+      {% csrf_token %}
+       <div class="card-header mx-lg-4 p-0 py-3 py-lg-4 mb-4 mb-md-0">
+          <h3 class="h5 mb-0">Job and Location Details</h3>
+       </div>
+       <div class="card-body p-0 p-md-4 pb-md-0">
+          <div class="row justify-content-center">
+           
+           <div class="col-12 col-lg-4">
+               <div class="form-group mb-4"><label for="cartInputCompany1">Job Type *</label> <select name="Jobs" class="selectpicker form-select" multiple aria-label="Default select example" data-live-search="true">
+                   <option value="1">Plumbing</option>
+                   <option value="2">Drainage Basic</option>
+                   <option value="3">Drainage External</option>
+                   <option value="4">Heating</option>
+                   <option value="5">Gas</option>
+                   <option value="6">Unvented</option>
+                   <option value="7">Electrical</option>
+                </select>
+               </div>
+            </div>
+            <div class="col-12 col-lg-4">
+               <div class="form-group mb-4"><label for="cartInputCompany1">Post Code *</label> <select name="cities" class="selectpicker form-select" multiple aria-label="Default select example" data-live-search="true">
+                   <option value="AL">AL</option>
+                   <option value="BA">BA</option>
+                   <option value="BS">BS</option>
+                   <option value="BR">BR</option>
+                   <option value="CB">CB</option>
+                   <option value="CM">CM</option>
+                   <option value="CO">CO</option>
+                   <option value="CT">CT</option>
+                   <option value="CR">CR</option>
+                   <option value="DA">DA</option>
+                   <option value="EN">EN</option>
+                   <option value="E">E</option>
+                   <option value="GU">GU</option>
+                   <option value="GL">GL</option>
+                   <option value="HA">HA</option>
+                   <option value="HP">HP</option>
+                   <option value="IP">IP</option>
+                   <option value="IG">IG</option>
+                   <option value="KT">KT</option>
+                   <option value="LU">LU</option>
+                   <option value="ME">ME</option>
+                   <option value="MK">MK</option>
+                   <option value="N">N</option>
+                   <option value="NN">NN</option>
+                   <option value="NW">NW</option>
+                   <option value="OX">OX</option>
+                   <option value="PE">PE</option>
+                   <option value="RG">RG</option>
+                   <option value="RH">RH</option>
+                   <option value="RM">RM</option>
+                   <option value="SE">SE</option>
+                   <option value="SG">SG</option>
+                   <option value="SL">SL</option>
+                   <option value="SM">SM</option>
+                   <option value="SN">SN</option>
+                   <option value="SS">SS</option>
+                   <option value="SW">SW</option>
+                   <option value="TN">TN</option>
+                   <option value="TW">TW</option>
+                   <option value="UB">UB</option>
+                   <option value="W">W</option>
+                   <option value="WC">WC</option>
+                   <option value="WD">WD</option>
+                </select>
+               </div>
+            </div>
+            <div class="col-12 col-lg-2">
+               <div class="form-group mb-4"><label for="cartInputCompany1">Rating </label> <input name="rating" type="text" placeholder="1" class="form-control"  required></div>
+            </div>
+            <div class="col-12 col-lg-2">
+               <span class="mb-5"></span>
+               <button class="btn btn-gray-800 mt-4 animate-up-2 search-btn" type="submit">Save</button>
+           </div>
+           
+            
+          </div>
+       </div>
+    </form>
+    <div class="card border-0 shadow">
+       <div class="card-header mx-lg-4 p-0 py-3 py-lg-4 mb-4 mb-md-0">
+           <h3 class="h5 mb-0">Availablity Details</h3>
+        </div>
+       <div id="calendar" class="p-4"></div>
+    </div>
+    
+</div>
+<div class="modal fade" id="modal-new-event" tabindex="-1" role="dialog" aria-labelledby="modal-new-event" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <form id="addNewEventForm" class="modal-content">
+         <div class="modal-body">
+            <div class="row">
+               <div class="col-12 col-lg-6">
+                  <div class="mb-4">
+                     <label for="dateStart">Add Start Time</label>
+                     <div class="input-group">
+                        <span class="input-group-text">
+                           <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                           </svg>
+                        </span>
+                        <select class="form-select" id="time" aria-label="Default select example">
+                           <option value="00:00">00:00</option>
+                           <option value="00:30">00:30</option>
+                           <option value="01:00">01:00</option>
+                           <option value="01:30">01:30</option>
+                           <option value="02:00">02:00</option>
+                           <option value="02:30">02:30</option>
+                           <option value="03:00">03:00</option>
+                           <option value="03:30">03:30</option>
+                           <option value="04:00">04:00</option>
+                           <option value="04:30">04:30</option>
+                           <option value="05:00">05:00</option>
+                           <option value="05:30">05:30</option>
+                           <option value="06:00">06:00</option>
+                           <option value="06:30">06:30</option>
+                           <option value="07:00">07:00</option>
+                           <option value="07:30">07:30</option>
+                           <option value="08:00">08:00</option>
+                           <option value="08:30">08:30</option>
+                           <option value="09:00">09:00</option>
+                           <option value="09:30">09:30</option>
+                           <option value="10:00">10:00</option>
+                           <option value="10:30">10:30</option>
+                           <option value="11:00">11:00</option>
+                           <option value="11:30">11:30</option>
+                           <option value="12:00">12:00</option>
+                           <option value="12:30">12:30</option>
+                           <option value="13:00">13:00</option>
+                           <option value="13:30">13:30</option>
+                           <option value="14:00">14:00</option>
+                           <option value="14:30">14:30</option>
+                           <option value="15:00">15:00</option>
+                           <option value="15:30">15:30</option>
+                           <option value="16:00">16:00</option>
+                           <option value="16:30">16:30</option>
+                           <option value="17:00">17:00</option>
+                           <option value="17:30">17:30</option>
+                           <option value="18:00">18:00</option>
+                           <option value="18:30">18:30</option>
+                           <option value="19:00">19:00</option>
+                           <option value="19:30">19:30</option>
+                           <option value="20:00">20:00</option>
+                           <option value="20:30">20:30</option>
+                           <option value="21:00">21:00</option>
+                           <option value="21:30">21:30</option>
+                           <option value="22:00">22:00</option>
+                           <option value="22:30">22:30</option>
+                           <option value="23:00">23:00</option>
+                           <option value="23:30">23:30</option>
+                        </select>
+                        <input  class="form-control" id="dateStart" type="text" hidden>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-12 col-lg-6">
+                  <div class="mb-2">
+                     <label for="dateEnd">Add End Time</label>
+                     <div class="input-group">
+                       <span class="input-group-text">
+                           <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                           </svg>
+                        </span>
+                        <select class="form-select" id="time" aria-label="Default select example">
+                           <option value="00:00">00:00</option>
+                           <option value="00:30">00:30</option>
+                           <option value="01:00">01:00</option>
+                           <option value="01:30">01:30</option>
+                           <option value="02:00">02:00</option>
+                           <option value="02:30">02:30</option>
+                           <option value="03:00">03:00</option>
+                           <option value="03:30">03:30</option>
+                           <option value="04:00">04:00</option>
+                           <option value="04:30">04:30</option>
+                           <option value="05:00">05:00</option>
+                           <option value="05:30">05:30</option>
+                           <option value="06:00">06:00</option>
+                           <option value="06:30">06:30</option>
+                           <option value="07:00">07:00</option>
+                           <option value="07:30">07:30</option>
+                           <option value="08:00">08:00</option>
+                           <option value="08:30">08:30</option>
+                           <option value="09:00">09:00</option>
+                           <option value="09:30">09:30</option>
+                           <option value="10:00">10:00</option>
+                           <option value="10:30">10:30</option>
+                           <option value="11:00">11:00</option>
+                           <option value="11:30">11:30</option>
+                           <option value="12:00">12:00</option>
+                           <option value="12:30">12:30</option>
+                           <option value="13:00">13:00</option>
+                           <option value="13:30">13:30</option>
+                           <option value="14:00">14:00</option>
+                           <option value="14:30">14:30</option>
+                           <option value="15:00">15:00</option>
+                           <option value="15:30">15:30</option>
+                           <option value="16:00">16:00</option>
+                           <option value="16:30">16:30</option>
+                           <option value="17:00">17:00</option>
+                           <option value="17:30">17:30</option>
+                           <option value="18:00">18:00</option>
+                           <option value="18:30">18:30</option>
+                           <option value="19:00">19:00</option>
+                           <option value="19:30">19:30</option>
+                           <option value="20:00">20:00</option>
+                           <option value="20:30">20:30</option>
+                           <option value="21:00">21:00</option>
+                           <option value="21:30">21:30</option>
+                           <option value="22:00">22:00</option>
+                           <option value="22:30">22:30</option>
+                           <option value="23:00">23:00</option>
+                           <option value="23:30">23:30</option>
+                        </select>
+                        <input data-datepicker="" class="form-control" id="dateEnd" type="text" hidden>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer"><button type="submit" class="btn btn-gray-800" id="addNewEvent">Save</button> <button type="button" class="btn btn-gray-300 ms-auto" data-bs-dismiss="modal">Close</button></div>
+      </form>
+   </div>
+</div>
+<div class="modal fade" id="modal-edit-event" tabindex="-1" role="dialog" aria-labelledby="modal-edit-event" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <form id="editEventForm" class="modal-content">
+         <div class="modal-body">
+            <div class="mb-4"><input type="text" class="form-control" id="eventTitleEdit" hidden></div>
+            <div class="row">
+               <div class="col-12 col-lg-6">
+                  <div class="">
+                     <label for="dateStartEdit">Select start date</label>
+                     
+                     <div class="input-group">
+                       <span class="input-group-text">
+                          <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                          </svg>
+                       </span>
+                       <select class="form-select" id="time" aria-label="Default select example">
+                           <option value="00:00">00:00</option>
+                           <option value="00:30">00:30</option>
+                           <option value="01:00">01:00</option>
+                           <option value="01:30">01:30</option>
+                           <option value="02:00">02:00</option>
+                           <option value="02:30">02:30</option>
+                           <option value="03:00">03:00</option>
+                           <option value="03:30">03:30</option>
+                           <option value="04:00">04:00</option>
+                           <option value="04:30">04:30</option>
+                           <option value="05:00">05:00</option>
+                           <option value="05:30">05:30</option>
+                           <option value="06:00">06:00</option>
+                           <option value="06:30">06:30</option>
+                           <option value="07:00">07:00</option>
+                           <option value="07:30">07:30</option>
+                           <option value="08:00">08:00</option>
+                           <option value="08:30">08:30</option>
+                           <option value="09:00">09:00</option>
+                           <option value="09:30">09:30</option>
+                           <option value="10:00">10:00</option>
+                           <option value="10:30">10:30</option>
+                           <option value="11:00">11:00</option>
+                           <option value="11:30">11:30</option>
+                           <option value="12:00">12:00</option>
+                           <option value="12:30">12:30</option>
+                           <option value="13:00">13:00</option>
+                           <option value="13:30">13:30</option>
+                           <option value="14:00">14:00</option>
+                           <option value="14:30">14:30</option>
+                           <option value="15:00">15:00</option>
+                           <option value="15:30">15:30</option>
+                           <option value="16:00">16:00</option>
+                           <option value="16:30">16:30</option>
+                           <option value="17:00">17:00</option>
+                           <option value="17:30">17:30</option>
+                           <option value="18:00">18:00</option>
+                           <option value="18:30">18:30</option>
+                           <option value="19:00">19:00</option>
+                           <option value="19:30">19:30</option>
+                           <option value="20:00">20:00</option>
+                           <option value="20:30">20:30</option>
+                           <option value="21:00">21:00</option>
+                           <option value="21:30">21:30</option>
+                           <option value="22:00">22:00</option>
+                           <option value="22:30">22:30</option>
+                           <option value="23:00">23:00</option>
+                           <option value="23:30">23:30</option>
+                        </select>
+                       <input data-datepicker="" class="form-control" id="dateStartEdit" type="text" hidden>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-12 col-lg-6">
+                  <div class="mb-2">
+                     <label for="dateEndEdit">Select end date</label>
+                     
+                     <div class="input-group">
+                       <span class="input-group-text">
+                          <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                          </svg>
+                       </span>
+                       <select class="form-select" id="time" aria-label="Default select example">
+                           <option value="00:00">00:00</option>
+                           <option value="00:30">00:30</option>
+                           <option value="01:00">01:00</option>
+                           <option value="01:30">01:30</option>
+                           <option value="02:00">02:00</option>
+                           <option value="02:30">02:30</option>
+                           <option value="03:00">03:00</option>
+                           <option value="03:30">03:30</option>
+                           <option value="04:00">04:00</option>
+                           <option value="04:30">04:30</option>
+                           <option value="05:00">05:00</option>
+                           <option value="05:30">05:30</option>
+                           <option value="06:00">06:00</option>
+                           <option value="06:30">06:30</option>
+                           <option value="07:00">07:00</option>
+                           <option value="07:30">07:30</option>
+                           <option value="08:00">08:00</option>
+                           <option value="08:30">08:30</option>
+                           <option value="09:00">09:00</option>
+                           <option value="09:30">09:30</option>
+                           <option value="10:00">10:00</option>
+                           <option value="10:30">10:30</option>
+                           <option value="11:00">11:00</option>
+                           <option value="11:30">11:30</option>
+                           <option value="12:00">12:00</option>
+                           <option value="12:30">12:30</option>
+                           <option value="13:00">13:00</option>
+                           <option value="13:30">13:30</option>
+                           <option value="14:00">14:00</option>
+                           <option value="14:30">14:30</option>
+                           <option value="15:00">15:00</option>
+                           <option value="15:30">15:30</option>
+                           <option value="16:00">16:00</option>
+                           <option value="16:30">16:30</option>
+                           <option value="17:00">17:00</option>
+                           <option value="17:30">17:30</option>
+                           <option value="18:00">18:00</option>
+                           <option value="18:30">18:30</option>
+                           <option value="19:00">19:00</option>
+                           <option value="19:30">19:30</option>
+                           <option value="20:00">20:00</option>
+                           <option value="20:30">20:30</option>
+                           <option value="21:00">21:00</option>
+                           <option value="21:30">21:30</option>
+                           <option value="22:00">22:00</option>
+                           <option value="22:30">22:30</option>
+                           <option value="23:00">23:00</option>
+                           <option value="23:30">23:30</option>
+                        </select>
+                       <input data-datepicker="" class="form-control" id="dateEndEdit" type="text" hidden>
+                    </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer"><button type="submit" class="btn btn-gray-800 me-2" id="editEvent">Update</button> <button type="submit" class="btn btn-danger" id="deleteEvent">Delete</button> <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button></div>
+      </form>
+   </div>
+</div>
+
+
+
+
+
+
+{% block content %}
+
+
+<div class="row my-4">
+   <form action="#" method="post" class="card border-0 shadow p-3 pb-4 mb-4">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="card-header mx-lg-4 p-0 py-3 py-lg-4 mb-4 mb-md-0">
+         <h3 class="h5 mb-0">Job and Location Details
+         </h3>
+      </div>
+
+      <div class="card-body p-0 p-md-4 pb-md-0">
+         <div class="row justify-content-center">
+            <div class="col-12 col-lg-5">
+               <div class="form-group mb-4">
+                  <div class="form-group{% if form.username.errors %} has-error{% endif %}">
+                     {{ form.jobs|as_crispy_field }}
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-12 col-lg-5">
+               <div class="form-group mb-4">
+                  <div class="form-group{% if form.password1.errors %} has-error{% endif %}">
+
+                     {{ form.cities|as_crispy_field }}
+                  </div>
+               </div>
+            </div>
+
+           
+            <div class="col-12 col-lg-2">
+               <div class="form-group mb-4">
+                  <div class="form-group{% if form.password1.errors %} has-error{% endif %}">
+                     {{ form.rating|as_crispy_field }}
+                  </div>
+               </div>
+            </div>
+           
+
+            <div class="col-12 col-lg-4">
+               <div class="form-group mb-4">
+                  <div class="form-group{% if form.password1.errors %} has-error{% endif %}">
+                     {{ form.date|as_crispy_field }}
+                  </div>
+               </div>
+            </div>
+            <div class="col-12 col-lg-4">
+               <div class="form-group mb-4">
+                  <div class="form-group{% if form.password1.errors %} has-error{% endif %}">
+                     {{ form.start_time|as_crispy_field }}
+                  </div>
+               </div>
+            </div>
+            <div class="col-12 col-lg-4">
+               <div class="form-group mb-4">
+                  <div class="form-group{% if form.password1.errors %} has-error{% endif %}">
+                     {{ form.end_time|as_crispy_field }}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-12"><button class="btn btn-gray-800 mt-5 animate-up-2" type="submit">save</button>
+      </div>
+   </form>
+</div>
+
+
+
+<DIV style="display:none"></DIV>
+   <form action="" method="POST" class="card border-0 shadow p-3 pb-4 mb-4">
+      {% csrf_token %}
+       <div class="card-header mx-lg-4 p-0 py-3 py-lg-4 mb-4 mb-md-0">
+          <h3 class="h5 mb-0">Job and Location Details</h3>
+       </div>
+               <div class="form-group mb-4"><label for="cartInputCompany1">Job Type *</label> <select class="selectpicker form-select" multiple aria-label="Default select example" data-live-search="true">
+                   <option value="1">Plumbing</option>
+              
+                </select>
+           
+            <div class="col-12 col-lg-2">
+               <div class="form-group mb-4"><label for="cartInputCompany1">Rating </label> <input type="text" placeholder="1" class="form-control"  required></div>
+            </div>
+    </form>
+          
+    {% endblock content %}

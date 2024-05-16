@@ -1,0 +1,81 @@
+
+     
+     {% extends 'base.html' %}
+     
+{% block content %}
+
+        <div class="pb-4">
+            {% if messages %} {% for message in messages %}
+            <small {% if message.tags %} class="{{message.tags}}" {% endif %}>
+              <h5 id='msg' class="alert alert-success"> {{message}}</h5>
+            </small>
+            {% endfor %}
+            {% endif %}
+            <div class="py-4">
+                <div class="d-flex justify-content-between w-100 flex-wrap">
+                    <div class="mb-3 mb-lg-0">
+                        <h1 class="h4">Engineers Available Today</h1>
+                        <p class="mb-0">List of Engineers which are available today.</p>
+                     </div>
+                </div>
+             </div>
+             <div class="card">
+                <div class="table-responsive py-4">
+                    {% if engineers %}
+                   <table class="table table-flush" id="datatable">
+                      <thead class="thead-light">
+                        <tr>
+                            <th class="border-bottom fw-bolder" scope="col">Engineer Name</th>
+                            <th class="border-bottom fw-bolder" scope="col">Postcode Cover</th>
+                            <th class="border-bottom fw-bolder" scope="col">Job Type</th>
+                            <th class="border-bottom fw-bolder" scope="col">Available</th>
+                            <th class="border-bottom fw-bolder" scope="col">Rating</th>
+                           
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        {% for engr  in engineers %}
+                        <tr>
+                            <td class=" text-gray-900">{{engr.engineer}}</td>
+                            <td class=" text-gray-900">
+                                {% for city in engr.cities.all %}
+                            <span class="badge super-badge bg-success ms-1">{{ city }}</span>
+                        {% endfor %}
+                                
+                            </td>
+                            <td class=" text-gray-900">
+                        {% for job in engr.jobs.all %}
+                            
+                                <span class="badge super-badge ms-1 {% if job.name == 'Plumbing' %} bg-info {% elif job.name == 'Drainage'  %} bg-success{% elif job.name == 'Electricity'  %} bg-warning {% elif job.name == 'Heating'  %} bg-danger {% elif job.name == 'Gas'  %} bg-secondary {% elif job.name == 'Unvented'  %}bg-tertiary   {% else %} bg-danger  {%endif%}  ">{{ job }}</span>
+                        {% endfor %}
+                                                    
+                            </td>
+                            <td class=" text-gray-900">{{ engr.start_time }} - {{ engr.end_time }}</td>
+                            <td class=" text-gray-900">{{engr.rating}}</td>
+
+                        </tr>
+                                 
+                        {% endfor %}
+                        
+                      </tbody>
+                   </table>
+                   {% else %}
+                   <h4 class="text-center alert alert-warning">No Record Found</h4>
+                   {% endif %}
+                </div>
+             </div>
+       
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      console.log("i m jqurey");
+  
+      // Wait for 10 seconds and then hide the element with id "myElement"
+      setTimeout(function () {
+        $("#msg").hide();
+      }, 4000); // 10000 milliseconds = 10 seconds
+    }); </script>
+
+     {% endblock content %}
